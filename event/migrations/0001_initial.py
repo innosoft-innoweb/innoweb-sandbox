@@ -7,20 +7,38 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('date', models.DateTimeField()),
-                ('place', models.CharField(max_length=100)),
-                ('photo', models.ImageField(blank=True, null=True, upload_to='evento')),
-                ('status', models.CharField(choices=[('Abierto', 'Abierto'), ('En proceso', 'En proceso'), ('Finalizado', 'Finalizado')], default='Abierto', max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("date", models.DateTimeField()),
+                ("place", models.CharField(max_length=100)),
+                ("photo", models.ImageField(blank=True, null=True, upload_to="evento")),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("Abierto", "Abierto"),
+                            ("En proceso", "En proceso"),
+                            ("Finalizado", "Finalizado"),
+                        ],
+                        default="Abierto",
+                        max_length=100,
+                    ),
+                ),
             ],
         ),
     ]

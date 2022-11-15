@@ -5,5 +5,7 @@ from .models import Participant
 
 
 def profile(request, id):
-     participant = Participant.objects.get(id=id)
-     return render(request, 'participant/profile.html', {"e":participant}) #participant/perfil.html is the path of templates
+    participant = Participant.objects.get(id=id)
+    return render(
+        request, "participant/profile.html", {"e": participant}
+    )  # participant/perfil.html is the path of templates

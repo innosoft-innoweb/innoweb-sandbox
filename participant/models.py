@@ -5,13 +5,15 @@ class Participant(models.Model):
     name = models.CharField(max_length=50, help_text="Introducce tu nombre")
     surname = models.CharField(max_length=50, help_text="Introduce tus apellidos")
     email = models.EmailField(max_length=50, help_text="Introduce tu correo")
-    photo = models.URLField(max_length=200, help_text="Introduce la url de tu foto", blank=True)
-    
-    #Metadata
+    photo = models.URLField(
+        max_length=200, help_text="Introduce la url de tu foto", blank=True
+    )
+
+    # Metadata
     class Meta:
-        ordering = ['name']
-    
-    #Métodos
+        ordering = ["name"]
+
+    # Métodos
     def get_name(self):
         return self.name
 
@@ -20,5 +22,3 @@ class Participant(models.Model):
 
     def get_email(self):
         return self.email
-    
-    

@@ -9,18 +9,37 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('participant', '0002_alter_participant_photo'),
-        ('event', '0005_alter_event_photo'),
+        ("participant", "0002_alter_participant_photo"),
+        ("event", "0005_alter_event_photo"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Score',
+            name="Score",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('punctuation', models.IntegerField(default=0)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='event.event')),
-                ('participant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='participant.participant')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("punctuation", models.IntegerField(default=0)),
+                (
+                    "event",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="event.event"
+                    ),
+                ),
+                (
+                    "participant",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="participant.participant",
+                    ),
+                ),
             ],
         ),
     ]

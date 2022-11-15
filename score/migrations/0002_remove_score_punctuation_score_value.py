@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('score', '0001_initial'),
+        ("score", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='score',
-            name='punctuation',
+            model_name="score",
+            name="punctuation",
         ),
         migrations.AddField(
-            model_name='score',
-            name='value',
+            model_name="score",
+            name="value",
             field=models.PositiveIntegerField(default=0),
         ),
     ]

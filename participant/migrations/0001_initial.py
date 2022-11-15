@@ -7,21 +7,39 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Participant',
+            name="Participant",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Introducce tu nombre', max_length=50)),
-                ('surname', models.CharField(help_text='Introduce tus apellidos', max_length=50)),
-                ('email', models.EmailField(help_text='Introduce tu correo', max_length=50)),
-                ('photo', models.URLField(help_text='Introduce la url de tu foto')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(help_text="Introducce tu nombre", max_length=50),
+                ),
+                (
+                    "surname",
+                    models.CharField(
+                        help_text="Introduce tus apellidos", max_length=50
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(help_text="Introduce tu correo", max_length=50),
+                ),
+                ("photo", models.URLField(help_text="Introduce la url de tu foto")),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
     ]

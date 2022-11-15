@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('event', '0003_alter_evento_imagen'),
+        ("event", "0003_alter_evento_imagen"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='event',
-            name='photo',
-            field=models.URLField(help_text='Url de la imagen del evento', max_length=10000),
+            model_name="event",
+            name="photo",
+            field=models.URLField(
+                help_text="Url de la imagen del evento", max_length=10000
+            ),
         ),
     ]
