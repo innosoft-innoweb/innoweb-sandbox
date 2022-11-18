@@ -41,7 +41,7 @@ jobs:
         DBUSER: innosoft
         DBPASSWORD: innosoft-2022
         DBHOST: 127.0.0.1
-        DBPORT: $
+        DBPORT: 3307
     - name: Run Tests
       run: |
         python manage.py test
@@ -51,7 +51,7 @@ jobs:
         DBUSER: innosoft
         DBPASSWORD: innosoft-2022
         DBHOST: 127.0.0.1
-        DBPORT: $
+        DBPORT: 3307
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
