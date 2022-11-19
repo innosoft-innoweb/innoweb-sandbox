@@ -19,17 +19,21 @@ jobs:
       mysql:
         image: mysql:8.0.1
         env:
-          DB_DATABASE: innosoftdb
-          DB_USER: innosoft
-          DB_PASSWORD: 'innosoft-2022'
-          DB_HOST: 127.0.0.1
+          MYSQL_ROOT_PASSWORD: innosoft-2022
+          MYSQL_DATABASE: innosoftdb
+          MYSQL__USER: innosoft
+          MYSQL_PASSWORD: innosoft-2022
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
     - uses: actions/checkout@v2
-    - name: Set up MySQL
+    - name: Verify MySQL connection from host
       run: |
-        sudo /etc/init.d/mysql start
-        mysql -h 127.0.0.1 -e 'CREATE DATABASE innosoftdb;' -uinnosoft -pinnosoft-2022
+        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
+        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
+
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
