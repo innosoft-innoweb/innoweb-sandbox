@@ -9,23 +9,27 @@ on:
 jobs:
   test:
 
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.10]
+    name: Test Suite with PHPUnit
+    runs-on: ubuntu-20.04
 
     services:
       mysql:
-        image: mysql:8.0.1
+        image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: evidentia
+          MYSQL_USER: evidentia
+          MYSQL_PASSWORD: secret
         ports:
-        - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
     - uses: actions/checkout@v2
+    - name: Verify MySQL connection from host
+      run: |
+        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'evidentia'@'%' identified by 'secret'; FLUSH PRIVILEGES;"
+        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
