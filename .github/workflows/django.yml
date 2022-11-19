@@ -30,7 +30,7 @@ jobs:
       run: |
         sudo /etc/init.d/mysql start
         mysql -e 'CREATE DATABASE innosoftdb;' -uroot -proot
-        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
+        mysql --host 127.0.0.1 --port 3307 -uroot -proot -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft'; FLUSH PRIVILEGES;"
         
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
