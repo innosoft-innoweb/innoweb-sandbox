@@ -40,7 +40,9 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        cd innoweb-sandbox
+        coverage run --branch --source=. ./manage.py test  --keepdb 
+        coverage xml 
       env: 
         DBENGINE: django.db.backends.mysql
         DBNAME: innosoftdb
