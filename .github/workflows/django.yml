@@ -22,7 +22,7 @@ jobs:
           DB_DATABASE: innosoftdb
           DB_USER: innosoft
           DB_PASSWORD: 'innosoft-2022'
-          DB_HOST: localhost
+          DB_HOST: 127.0.0.1
       
     steps:
     - uses: actions/checkout@v2
@@ -42,7 +42,7 @@ jobs:
       run: |
         python manage.py migrate
       env: 
-        DBENGINE: django.db.backends.mysql¡
+        DBENGINE: django.db.backends.mysql
         DBNAME: innosoftdb
         DBUSER: innosoft
         DBPASSWORD: innosoft-2022
