@@ -19,10 +19,11 @@ jobs:
       mysql:
         image: mysql:8.0.1
         env:
-          DB_DATABASE: django_test
-          DB_USER: root
-          DB_PASSWORD: 'root'
-          DB_HOST: localhost
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: innosoftdb
+          MYSQL_USER: innosoft
+          MYSQL_PASSWORD: innosoft-2022
+
         ports:
           - 3307:3307
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
