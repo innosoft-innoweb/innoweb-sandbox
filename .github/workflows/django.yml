@@ -19,20 +19,17 @@ jobs:
       mysql:
         image: mysql:8.0.1
         env:
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-          MYSQL_ROOT_PASSWORD: rootpassword
-        ports: 
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-        
+          DB_DATABASE: django_test
+          DB_USER: root
+          DB_PASSWORD: 'root'
+          DB_HOST: localhost
+      
     steps:
     - uses: actions/checkout@v2
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        mysql -e 'CREATE DATABASE django_test;' -uroot -proot
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
