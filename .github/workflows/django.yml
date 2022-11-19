@@ -40,7 +40,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: | 
-        cd innoweb
         coverage run --branch --source=. ./manage.py test  --keepdb 
         coverage xml 
       env: 
@@ -54,4 +53,4 @@ jobs:
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
           project-token: ${{ secrets.CODACY_TOKEN }}
-          coverage-reports: innoweb/coverage.xml 
+          coverage-reports: ./coverage.xml 
