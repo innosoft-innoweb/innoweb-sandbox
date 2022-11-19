@@ -39,10 +39,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-      run: |
-        cd innoweb-sandbox
-        coverage run --branch --source=. ./manage.py test  --keepdb 
-        coverage xml 
+      run: python manage.py test
       env: 
         DBENGINE: django.db.backends.mysql
         DBNAME: innosoftdb
@@ -54,4 +51,3 @@ jobs:
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
           project-token: ${{ secrets.CODACY_TOKEN }}
-          coverage-reports: innoweb-sandbox/coverage.xml
