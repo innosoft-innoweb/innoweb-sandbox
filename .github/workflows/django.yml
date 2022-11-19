@@ -19,9 +19,9 @@ jobs:
       mysql:
         image: mysql:8.0.1
         env:
-          DB_DATABASE: django_test
-          DB_USER: root
-          DB_PASSWORD: 'root'
+          DB_DATABASE: innosoftdb
+          DB_USER: innosoft
+          DB_PASSWORD: 'innosoft-2022'
           DB_HOST: localhost
       
     steps:
@@ -29,7 +29,7 @@ jobs:
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE django_test;' -uroot -proot
+        mysql -e 'CREATE DATABASE innosoftdb;' -uinnosoft -pinnosoft-2022
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
@@ -42,10 +42,10 @@ jobs:
       run: |
         python manage.py migrate
       env: 
-        DBENGINE: django.db.backends.mysql
-        DBNAME: django_test
-        DBUSER: root
-        DBPASSWORD: 'root'
+        DBENGINE: django.db.backends.mysql¡
+        DBNAME: innosoftdb
+        DBUSER: innosoft
+        DBPASSWORD: innosoft-2022
         DBHOST: 127.0.0.1
         DBPORT: 3306
     - name: Run Tests
