@@ -19,21 +19,19 @@ jobs:
       mysql:
         image: mysql:8.0.1
         env:
-          MYSQL_ROOT_PASSWORD: innosoft-2022
-          MYSQL_DATABASE: innosoftdb
-          MYSQL__USER: innosoft
-          MYSQL_PASSWORD: innosoft-2022
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          DB_DATABASE: django_test
+          DB_USER: root
+          DB_PASSWORD: 'root'
+          DB_HOST: localhost
       
     steps:
     - uses: actions/checkout@v2
-    - name: Verify MySQL connection from host
+    - name: Set up MySQL
       run: |
-        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
-        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
-
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE innosoftdb;' -uroot -proot
+        mysql -e 'CREATE USER 'innosoft'@'localhost' IDENTIFIED BY 'innosoft-2022';'
+        
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
@@ -61,9 +59,9 @@ jobs:
         DBUSER: innosoft
         DBPASSWORD: innosoft-2022
         DBHOST: 127.0.0.1
-        DBPORT: 3307
+        DBPORT: 3306
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
           project-token: ${{ secrets.CODACY_TOKEN }}
-          coverage-reports: decide/coverage.xml 
+          coverage-reports: decide/coverage.xml
