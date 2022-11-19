@@ -16,10 +16,10 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: evidentia
-          MYSQL_USER: evidentia
-          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: innosoftdb
+          MYSQL_USER: innosoft
+          MYSQL_PASSWORD: innosoft-2022
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -28,8 +28,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Verify MySQL connection from host
       run: |
-        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'evidentia'@'%' identified by 'secret'; FLUSH PRIVILEGES;"
-        mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
+        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
+        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE DATABASE innosoftdb;"
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
