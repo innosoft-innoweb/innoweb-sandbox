@@ -43,11 +43,11 @@ jobs:
         python manage.py migrate
       env: 
         DBENGINE: django.db.backends.mysql
-        DBNAME: innosoftdb
-        DBUSER: innosoft
-        DBPASSWORD: innosoft-2022
+        DBNAME: django_test
+        DBUSER: root
+        DBPASSWORD: 'root'
         DBHOST: 127.0.0.1
-        DBPORT: 3307
+        DBPORT: 3306
     - name: Run Tests
       run: |
         python manage.py test
