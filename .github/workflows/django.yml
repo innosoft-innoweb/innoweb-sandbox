@@ -29,7 +29,7 @@ jobs:
     - name: Set up MySQL
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE innosoftdb;' -uinnosoft -pinnosoft-2022
+        mysql -h 127.0.0.1 -e 'CREATE DATABASE innosoftdb;' -uinnosoft -pinnosoft-2022
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
