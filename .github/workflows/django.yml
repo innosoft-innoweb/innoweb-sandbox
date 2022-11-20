@@ -17,9 +17,6 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: innosoftdb
-          MYSQL_USER: innosoft
-          MYSQL_PASSWORD: innosoft-2022
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -28,8 +25,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Verify MySQL connection from host
       run: |
-        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
-        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE DATABASE test;"
+        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE DATABASE innowebdb;"
+        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE USER 'innosoft'@'localhost' IDENTIFIED BY 'innosoft-2022';"
+        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL PRIVILEGES ON `innowebdb` . * TO 'innosoft'@'localhost';"
+        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "FLUSH PRIVILEGES;"
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
@@ -38,6 +37,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Make migrate
+      run: | 
+        python manage.py makemigrations
+        python manage.py migrate
     - name: Run Tests
       run: | 
         coverage run --branch --source=. ./manage.py test  --keepdb 
