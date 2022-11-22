@@ -1,35 +1,31 @@
-name: Django CI
+name: Innosoft eventos GA
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
+      - feature/**
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
-  test:
+  build:
 
-    name: Prueba
     runs-on: ubuntu-20.04
 
     services:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: innosoftdb
-          MYSQL_USER: innosoft
-          MYSQL_PASSWORD: innosoft-2022
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE:  innosoftdb
         ports:
-          - 3306:3306
+          - 3307:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
     - uses: actions/checkout@v2
-    - name: Verify MySQL connection from host
-      run: |
-        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
-        mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "CREATE DATABASE test;"
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
@@ -38,17 +34,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install codacy-coverage
     - name: Run Tests
       run: | 
         coverage run --branch --source=. ./manage.py test  --keepdb 
         coverage xml 
-      env: 
-        DBENGINE: django.db.backends.mysql
-        DBNAME: innosoftdb
-        DBUSER: innosoft
-        DBPASSWORD: innosoft-2022
-        DBHOST: 127.0.0.1
-        DBPORT: 3306
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
