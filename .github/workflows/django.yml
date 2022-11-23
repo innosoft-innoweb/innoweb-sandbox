@@ -31,11 +31,6 @@ jobs:
       run: |
           mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'evidentia'@'%' identified by 'secret'; FLUSH PRIVILEGES;"
           mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
-          /etc/init.d/mysql stop
-          service mysql stop
-          killall -KILL mysql mysqld_safe mysqld
-          /etc/init.d/mysql start
-          service mysql start
     - uses: actions/checkout@v2
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
@@ -48,6 +43,7 @@ jobs:
         pip install codacy-coverage
     - name: Run Tests
       run: | 
+        /etc/init.d/mysql start
         coverage run --branch --source=. ./manage.py test  --keepdb 
         coverage xml 
     - name: Codacy Coverage Reporter
