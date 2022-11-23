@@ -18,19 +18,13 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: evidentia
-          MYSQL_USER: evidentia
-          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: mysql
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
-    - name: Verify MySQL connection from host
-      run: |
-          mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'evidentia'@'%' identified by 'secret'; FLUSH PRIVILEGES;"
-          mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
     - uses: actions/checkout@v2
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
@@ -46,6 +40,13 @@ jobs:
         /etc/init.d/mysql start
         coverage run --branch --source=. ./manage.py test  --keepdb 
         coverage xml 
+      env: 
+        DBENGINE: django.db.backends.mysql
+        DBNAME: mysql
+        DBUSER: root
+        DBPASSWORD: root
+        DBHOST: 127.0.0.1
+        DBPORT: $
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
