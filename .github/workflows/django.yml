@@ -52,10 +52,4 @@ jobs:
             MYSQL_ROOT_PASSWORD: password
             POSTGRES_PORT: 3306
       run: | 
-        coverage run --branch --source=. ./manage.py test  --keepdb 
-        coverage xml 
-    - name: Codacy Coverage Reporter
-      uses: codacy/codacy-coverage-reporter-action@v1
-      with:
-          project-token: ${{ secrets.CODACY_TOKEN }}
-          coverage-reports: ./coverage.xml
+        python ./manage.py test  
