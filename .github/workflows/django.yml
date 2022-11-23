@@ -19,6 +19,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: 'innosoftdb'
+          MYSQL_HOST: 127.0.0.1
           MYSQL_USER: 'innosoft'
           MYSQL_PASSWORD: 'innosoft-2022'
           MYSQL_ROOT_PASSWORD: password
@@ -44,16 +45,16 @@ jobs:
         pip install -r requirements.txt
         pip install codacy-coverage
     - name: Run Tests
+      env:
+            MYSQL_DATABASE: 'innosoftdb'
+            MYSQL_HOST: 127.0.0.1
+            MYSQL_USER: 'innosoft'
+            MYSQL_PASSWORD: 'innosoft-2022'
+            MYSQL_ROOT_PASSWORD: password
+            POSTGRES_PORT: 3306
       run: | 
         coverage run --branch --source=. ./manage.py test  --keepdb 
         coverage xml 
-      env: 
-        DBENGINE: django.db.backends.mysql
-        DBNAME: mysql
-        DBUSER: root
-        DBPASSWORD: root
-        DBHOST: 127.0.0.1
-        DBPORT: $
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
