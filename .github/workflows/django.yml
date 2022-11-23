@@ -19,7 +19,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: 'innowebdb'
-          MYSQL_HOST: 127.0.0.1
+          MYSQL_HOST: localhost
           MYSQL_USER: 'innosoft'
           MYSQL_PASSWORD: 'innosoft-2022'
           MYSQL_ROOT_PASSWORD: password
@@ -42,14 +42,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install codacy-coverage
     - name: Run Tests
       env:
             MYSQL_DATABASE: 'innowebdb'
-            MYSQL_HOST: 127.0.0.1
+            MYSQL_HOST: localhost
             MYSQL_USER: 'innosoft'
             MYSQL_PASSWORD: 'innosoft-2022'
             MYSQL_ROOT_PASSWORD: password
-            POSTGRES_PORT: 3306
       run: | 
         python ./manage.py test  
