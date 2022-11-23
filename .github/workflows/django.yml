@@ -23,7 +23,7 @@ jobs:
           MYSQL_PASSWORD: 'innosoft-2022'
           MYSQL_ROOT_PASSWORD: password
         ports:
-          - 3307:3306
+          - 3306:3307
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
@@ -32,7 +32,7 @@ jobs:
       run: |
         mysql --version
         sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port 3307 -uroot -ppassword -e "SHOW DATABASES"
+        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES"
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
