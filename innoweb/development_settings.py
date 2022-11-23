@@ -88,7 +88,7 @@ DATABASES = {
         'USER'    : 'innosoft',
         'PASSWORD': 'innosoft-2022',
         'HOST'    : 'localhost',
-        'PORT'    : '3307',
+        'PORT'    : '3306',
     }
 }
 
