@@ -32,6 +32,7 @@ jobs:
       run: |
         mysql --version
         sudo apt-get install -y mysql-client
+        mysqladmin -u root -p status
         mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES"
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
