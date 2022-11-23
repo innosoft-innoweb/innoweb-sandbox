@@ -24,7 +24,7 @@ jobs:
           MYSQL_PASSWORD: 'innosoft-2022'
           MYSQL_ROOT_PASSWORD: password
         ports:
-          - 3306:3307
+          - 3307:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
@@ -33,11 +33,7 @@ jobs:
       run: |
         mysql --version
         sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES"
-        sudo mkdir -p /var/run/mysqld
-        sudo chown mysql:mysql /var/run/mysqld
-        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
-        mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "GRANT ALL ON *.*  TO 'root'@'%' identified by 'password'; FLUSH PRIVILEGES;"
+        mysql --host 127.0.0.1 --port 3307 -uroot -ppassword -e "SHOW DATABASES"
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
       with:
