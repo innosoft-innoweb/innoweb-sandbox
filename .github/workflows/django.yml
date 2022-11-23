@@ -19,12 +19,16 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MYSQL_DATABASE:  db
+          MYSQL_DATABASE:  innosoftdb
         ports:
-          - 3307:3306
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       
     steps:
+    - name: Verify MySQL connection from host
+      run: |
+          mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "GRANT ALL ON *.*  TO 'innosoft'@'%' identified by 'innosoft-2022'; FLUSH PRIVILEGES;"
+          mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "CREATE DATABASE base21;"
     - uses: actions/checkout@v2
     - name: Set up Python 3.10.5
       uses: actions/setup-python@v2
