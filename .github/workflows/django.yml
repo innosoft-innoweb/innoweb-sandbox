@@ -44,7 +44,7 @@ jobs:
         pip install codacy-coverage
     - name: Load static data
       run: |
-        python manage.py loaddata "fixtures/initial.json"
+        python manage.py loaddata "initial.json"
     - name: Run Tests
       run: | 
         coverage run --branch --source=. ./manage.py test  --keepdb 
